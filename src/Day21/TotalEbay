@@ -1,0 +1,124 @@
+package Day21;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+
+import java.time.Duration;
+import java.util.ArrayList;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+
+public class TotalEbay {	// all the test cases covered in this code and written with comments for better understanding.
+	WebDriver driver;
+	@BeforeTest//1(primary condition)
+	  public void beforeTest() throws InterruptedException {
+		  driver=new ChromeDriver();
+		  driver.get("https://signin.ebay.com/ws/eBayISAPI.dll?SignIn&sgfl=gh&ru=https%3A%2F%2Fwww.ebay.com%2F");
+			 WebElement search=driver.findElement(By.id("userid"));
+			  search.sendKeys("saikarthik573@gmail.com");
+			  Thread.sleep(3000);
+			  search.sendKeys(Keys.ENTER);
+			  driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+			  WebElement search1=driver.findElement(By.id("pass"));
+			  search1.sendKeys("Kavali9@");
+			  search1.sendKeys(Keys.ENTER);
+			  driver.manage().window().maximize();
+			  Thread.sleep(5000); 
+	  }
+	
+	@Test(priority = 1)
+	public void search() { // this is default priority first it executes and then our priority 1,2,.......
+		  WebElement search=driver.findElement(By.id("gh-ac"));
+		  search.sendKeys("Watch");
+		  search.sendKeys(Keys.ENTER);
+		  
+		  search = driver.findElement(By.id("gh-ac"));
+		  search.clear();
+		  search.sendKeys("Watches under 5000");
+		  search.sendKeys(Keys.ENTER);
+	}
+	
+	@Test(priority = 2)
+	public void multipleSearch() throws InterruptedException {
+		// both test cases multiple test case and checking functionality 2,3
+		driver.get("https://www.ebay.com");
+		driver.findElement(By.id("gh-ac")).sendKeys(Keys.ENTER);
+	    Thread.sleep(4000);
+
+	    
+	    ArrayList<Integer> linkIndexes = new ArrayList<>();
+	    for (int i = 1; i <= 18; i++) { 
+	        linkIndexes.add(i);
+	    }
+	    for (int index : linkIndexes) {
+	        WebElement link = driver.findElement(
+	            By.xpath("//*[@id='wrapper']/div[1]/div/div/div[2]/div[1]/ul/li[" + index + "]/a")
+	        );
+	        link.sendKeys(Keys.ENTER);
+	        Thread.sleep(1000); 
+	    }
+	}
+	
+	 @Test(priority = 3) //4
+	  public void addCart() throws InterruptedException {
+		  driver.get("https://www.ebay.com/itm/386230990003");
+		  Thread.sleep(5000);
+		  driver.findElement(By.xpath("//*[@id=\"atcBtn_btn_1\"]")).sendKeys(Keys.ENTER);
+		  Thread.sleep(5000);
+		  
+	  }
+	@Test(priority = 5)
+	public void delCart() throws InterruptedException{
+		Thread.sleep(5000);
+		driver.findElement(By.xpath("//a[contains(@href,'cart.ebay.com')]")).click();
+		driver.findElement(By.cssSelector("button.number-input__delete.icon-btn.icon-btn--small.icon-btn--transparent")).click();
+		Thread.sleep(3000);
+	}
+	@Test(priority = 4)
+	public void changeData() throws InterruptedException {
+		//  //*[@id="account-settings-link-PI"]
+		driver.get("https://accountsettings.ebay.com/uas");
+		driver.findElement(By.xpath("//*[@id=\"account-settings-link-PI\"]")).sendKeys(Keys.ENTER);
+		driver.findElement(By.xpath("//*[@id=\"individual_personal_info_address_edit_button\"]")).sendKeys(Keys.ENTER);
+		Thread.sleep(2000);
+		driver.findElement(By.xpath("//*[@id=\"individual_username_edit_button\"]")).sendKeys(Keys.ENTER);
+		
+		WebElement search = driver.findElement(By.id("user_name"));
+		search.sendKeys("Karthik"); // TestCase - 6
+		driver.findElement(By.id("username_submit_edit_btn")).sendKeys(Keys.ENTER);
+		
+		search=driver.findElement(By.id("firstName"));
+		search.clear();
+		search.sendKeys("Kira");
+		search=driver.findElement(By.id("lastName"));
+		search.clear();
+		search.sendKeys("Kun");
+		// Test Case - 7
+		search = driver.findElement(By.id("addressLine1"));
+		search.clear();
+		search.sendKeys("India");
+		search = driver.findElement(By.id("address_edit_submit_button"));
+		search.sendKeys(Keys.ENTER);
+		Thread.sleep(3000);
+	}
+	 @Test(priority = 6)
+	  public void amazonLang() throws InterruptedException {
+		  driver.get("https://www.amazon.in/"); // TestCase - 9
+		  driver.findElement(By.xpath("//*[@id=\"icp-nav-flyout\"]/button")).sendKeys(Keys.ENTER);
+		  Thread.sleep(3000);
+		  driver.findElement(By.xpath("//*[@id=\"nav-flyout-icp\"]/div[2]/ul/li[4]/a/span/span[1]")).click();
+		  Thread.sleep(4000);
+		  
+	  }
+	@AfterTest//3
+	  public void afterTest() { //8
+		  Assert.assertTrue(true,"Search button is not working");
+		  driver.close();
+	  }
+}
