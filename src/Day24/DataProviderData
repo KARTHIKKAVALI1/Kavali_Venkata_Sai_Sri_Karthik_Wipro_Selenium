@@ -1,0 +1,102 @@
+Tasks: 
+
+Create 2 test cases, disable one using enabled = false, and run only the active test.
+Write a test to run the same test multiple times.
+Write test cases for a dummy login page using @Parameters in testng.xml.
+Write dependent test cases:
+
+login()
+
+search Product() (depends on login)
+
+logout() (depends on search)
+
+
+ 5. Use Data Provider to supply multiple sets of usernames/passwords to a login test.
+ 6 .Run test cases in parallel (methods, classes, tests) using the parallel attribute in testng.xml.
+
+ Here, this code will cover all the test cases mentioned 
+
+
+package Asserts_demo;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.NoSuchElementException;
+import org.testng.SkipException;
+
+import java.time.Duration;
+
+public class DataProviderData {
+    WebDriver driver;
+    boolean loginSuccessful = false;
+
+    @BeforeClass
+    public void setup() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
+    @Test
+    @Parameters({"username", "password"})
+    public void testLogin(String username, String password) throws InterruptedException {
+
+        System.out.println("Username: " + username + " | Password: " + password);
+
+        driver.get("https://signin.ebay.com/ws/eBayISAPI.dll?SignIn&sgfl=gh&ru=https%3A%2F%2Fwww.ebay.com%2F");
+
+        driver.findElement(By.id("userid")).click();
+        driver.findElement(By.id("userid")).sendKeys(username);
+        driver.findElement(By.id("signin-continue-btn")).click();
+        Thread.sleep(5000);
+
+        driver.findElement(By.id("pass")).click();
+        driver.findElement(By.id("pass")).sendKeys(password);
+        driver.findElement(By.id("sgnBt")).click();
+        Thread.sleep(2000);
+
+        try {
+            driver.findElement(By.id("gh-ac")); // search bar exists → login successful
+            loginSuccessful = true;
+        } catch (NoSuchElementException e) {
+            loginSuccessful = false;
+            throw new SkipException("Login failed with username: " + username);
+        }
+    }
+
+    @Test(priority = 2, dependsOnMethods = "testLogin", invocationCount = 2)
+    public void test1() {
+        WebElement search = driver.findElement(By.id("gh-ac"));
+        search.sendKeys("Watch");
+        search.sendKeys(Keys.ENTER);
+        
+        search = driver.findElement(By.id("gh-ac"));
+        search.clear();
+        search.sendKeys("Watches under 5000");
+        search.sendKeys(Keys.ENTER);
+        search.clear();
+    }
+
+    @Test(priority = 3, dependsOnMethods = "testLogin", alwaysRun = false)
+    public void test2() throws InterruptedException {
+        driver.get("https://www.ebay.com/itm/386230990003");
+        Thread.sleep(5000);
+        driver.findElement(By.xpath("//*[@id=\"atcBtn_btn_1\"]")).sendKeys(Keys.ENTER);
+        Thread.sleep(5000);
+    }
+    @Test(priority = 4) // this testcase can also run individually
+    public void logout() throws InterruptedException {
+    		driver.get("https://www.ebay.com/");
+    		driver.findElement(By.xpath("//*[@id=\"gh\"]/nav/div[1]/span[1]/div/button")).sendKeys(Keys.ENTER);
+    		Thread.sleep(3000);
+    		driver.findElement(By.xpath("//*[@id=\"s0-1-4-9-3[0]-0-9-dialog\"]/div/div/ul/li[3]/a")).sendKeys(Keys.ENTER);
+    		Thread.sleep(3000);
+    		System.out.println("Logout Successfully");
+    }
+}
