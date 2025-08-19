@@ -100,3 +100,17 @@ public class DataProviderData {
     		System.out.println("Logout Successfully");
     }
 }
+
+Here is the testNG.xml file 
+
+Note: Here, I gave only one credential to perform the task without errors.
+
+<suite name="ParallelSuite" parallel="methods" thread-count="4">
+    <test name="newsome">
+        <parameter name="username" value="saikarthik573@gmail.com"/>
+        <parameter name="password" value="Kavali9@"/>
+        <classes>
+            <class name="Asserts_demo.DataProviderData"/>
+        </classes>
+    </test>
+</suite>
