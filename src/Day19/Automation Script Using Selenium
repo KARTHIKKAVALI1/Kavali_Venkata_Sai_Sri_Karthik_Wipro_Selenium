@@ -1,0 +1,38 @@
+Here is the code for the test cases for the saucedemo e-commerce application 
+In this code evey test case is covered and unable to shop the items in this site 
+
+package Sele_package;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class sauce_demo {
+	
+	public static void main(String[] args) throws InterruptedException {
+	WebDriver driver = new ChromeDriver();
+	
+	driver.get("https://www.saucedemo.com/");
+	// locating username text feild
+	driver.findElement(By.id("user-name")).click();
+	driver.findElement(By.id("user-name")).sendKeys("problem_user");
+	//locating password text feild
+	driver.findElement(By.id("password")).click();
+	driver.findElement(By.id("password")).sendKeys("secret_sauce");
+	
+	// click on signin button
+	driver.findElement(By.id("login-button")).click();
+	
+	// adding to the cart
+	driver.findElement(By.id("add-to-cart-sauce-labs-backpack")).click();
+	// go to cart
+	driver.findElement(By.xpath("//*[@id=\"shopping_cart_container\"]/a")).click();
+	// go to the section for log out
+	Thread.sleep(3000);
+	driver.findElement(By.id("react-burger-menu-btn")).click();
+	Thread.sleep(3000);
+	driver.findElement(By.id("logout_sidebar_link")).click();
+	Thread.sleep(5000);
+	driver.close();
+}
+}
