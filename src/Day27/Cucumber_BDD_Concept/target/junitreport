@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="154.342" tests="9" skipped="0" failures="0" errors="0" timestamp="2025-08-21T12:18:03.468116900Z">
+<testcase classname="to add items to the cart" name="check to to add items to the cart" time="22.627">
+<system-out><![CDATA[
+Given the product page should be open in the browser........................passed
+When click on the add to cart button and click enter........................passed
+Then added to the cart successfully.........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="to remove items from the cart" name="check to to remove items from the cart" time="22.604">
+<system-out><![CDATA[
+Given cart page should be open in the browser...............................passed
+When click on the remove button and click enter.............................passed
+Then deleted from the cart successfully.....................................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate login page for the ebay site" name="check for valid and invalid credentials - #1.1" time="22.68">
+<system-out><![CDATA[
+Given login page should be open in the default browser......................passed
+When click on the username and enter saikarthik573@gmail.com................passed
+And click on continue button................................................passed
+And add Kave................................................................passed
+And click on signin button check failed.....................................passed
+Then login successfully and then open home page.............................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate login page for the ebay site" name="check for valid and invalid credentials - #1.2" time="17.67">
+<system-out><![CDATA[
+Given login page should be open in the default browser......................passed
+When click on the username and enter saikarthik573@gmail.com................passed
+And click on continue button................................................passed
+And add kign................................................................passed
+And click on signin button check failed.....................................passed
+Then login successfully and then open home page.............................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate login page for the ebay site" name="check for valid and invalid credentials - #1.3" time="19.513">
+<system-out><![CDATA[
+Given login page should be open in the default browser......................passed
+When click on the username and enter saikarthik573@gmail.com................passed
+And click on continue button................................................passed
+And add kign................................................................passed
+And click on signin button check failed.....................................passed
+Then login successfully and then open home page.............................passed
+]]></system-out>
+</testcase>
+<testcase classname="validate login page for the ebay site" name="check for valid and invalid credentials - #1.4" time="22.544">
+<system-out><![CDATA[
+Given login page should be open in the default browser......................passed
+When click on the username and enter saikarthik573@gmail.com................passed
+And click on continue button................................................passed
+And add Kavali9@............................................................passed
+And click on signin button check success....................................passed
+Then login successfully and then open home page.............................passed
+]]></system-out>
+</testcase>
+<testcase classname="to change language in the site" name="check to to change language in the site" time="4.056">
+<system-out><![CDATA[
+Given home page of amazon should be open in the browser.....................passed
+When click on the language button and click enter...........................passed
+Then successfully changed language..........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="check user is able to perform multiple searches" name="multiple searches" time="14.45">
+<system-out><![CDATA[
+Given now list of items to search...........................................passed
+When now click on the search feild..........................................passed
+And now enter multiple categories of data...................................passed
+Then now conform it is working as expected..................................passed
+]]></system-out>
+</testcase>
+<testcase classname="to search items in the search bar" name="check to search items in the search bar" time="8.003">
+<system-out><![CDATA[
+Given home page should be open in the browser...............................passed
+When click on the search button and enter values............................passed
+Then successful searches....................................................passed
+]]></system-out>
+</testcase>
+</testsuite>
