@@ -48,7 +48,7 @@ The assignments are organized **Day-wise** with hyperlinks for easier accessibil
 - **Design Pattern:** Page Object Model (POM)   
 - **Version Control:** Git & GitHub
 - **Database:** MySQL
-- **API's:** POSTMAN   
+- **APIs:** Postman   
 - **IDE:** Eclipse 
 - **Other Tools & Concepts:**  
   - Jenkins (CI/CD)    
